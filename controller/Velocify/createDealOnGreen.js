@@ -1,0 +1,70 @@
+const { createDeal } = require('../Hupspot/createDeal')
+
+
+const createDealOnGreen = async (contactVid, fetchedLead, lead) => {
+    try {
+        await createDeal({
+            vid: contactVid,
+            dealName: `${lead.firstName} ${lead.lastName} ${(fetchedLead[0].systemSize && fetchedLead[0].systemSize !== 0) ? '-' + fetchedLead[0].systemSize : ' '} ${(fetchedLead[0].systemSize && fetchedLead[0].systemSize !== 0) ? "kW" : " "}`,
+            leadSource: fetchedLead[0].leadSource ? fetchedLead[0].leadSource : undefined,
+            phone: fetchedLead[0].phone ? fetchedLead[0].phone : undefined,
+            email: fetchedLead[0].email ? fetchedLead[0].email : undefined,
+            stAddress: fetchedLead[0].address ? fetchedLead[0].address : undefined,
+            city: fetchedLead[0].city ? fetchedLead[0].city : undefined,
+            stateRegion: fetchedLead[0].state ? fetchedLead[0].state : undefined,
+            postalCode: fetchedLead[0].Zip ? fetchedLead[0].Zip : undefined,
+            electricityProviderDeal: fetchedLead[0].ElectricityProvider ? fetchedLead[0].ElectricityProvider : undefined,
+            moduleBrandOld: fetchedLead[0].modulesBrand ? fetchedLead[0].modulesBrand : undefined,
+            inverterBrand: fetchedLead[0].inverterBrand ? fetchedLead[0].inverterBrand : undefined,
+            amount: fetchedLead[0].contractPrice ? fetchedLead[0].contractPrice : undefined,
+            downPayment: fetchedLead[0].downPayment ? fetchedLead[0].downPayment : undefined,
+            n1stPayment: fetchedLead[0].f1stPayment ? fetchedLead[0].f1stPayment : undefined,
+            n2ndPayment: fetchedLead[0].s2ndPayment ? fetchedLead[0].s2ndPayment : undefined,
+            n3rdPayment: fetchedLead[0].t3rdPayment ? fetchedLead[0].t3rdPayment : undefined,
+            n4thPayment: fetchedLead[0].f4thPayment ? fetchedLead[0].f4thPayment : undefined,
+            finalPaymentAmount: fetchedLead[0].finalPayment ? fetchedLead[0].finalPayment : undefined,
+            n1stPaymentStage: fetchedLead[0].f1stPaymentDate ? fetchedLead[0].f1stPaymentDate : undefined,
+            n2ndPaymentStage: fetchedLead[0].s2ndPaymentDate ? fetchedLead[0].s2ndPaymentDate : undefined,
+            n3rdPaymentStage: fetchedLead[0].t3rdPaymentDate ? fetchedLead[0].t3rdPaymentDate : undefined,
+            n4thPaymentDate: fetchedLead[0].f4thPaymentDate ? fetchedLead[0].f4thPaymentDate : undefined,
+            finalPaymentStage: fetchedLead[0].finalPaymentDate ? fetchedLead[0].finalPaymentDate : undefined,
+            lender1: fetchedLead[0].lender1 ? fetchedLead[0].lender1 : undefined,
+            financeAmountL1: fetchedLead[0].financeAmount1 ? fetchedLead[0].financeAmount1 : undefined,
+            // l1ExpDate: fetchedLead[0].l1ExpDate ? fetchedLead[0].l1ExpDate : undefined,
+            lender2: fetchedLead[0].lender2 ? fetchedLead[0].lender2 : undefined,
+            financeAmountL2: fetchedLead[0].financeAmount2 ? fetchedLead[0].financeAmount2 : undefined,
+            // l2ExpDate: fetchedLead[0].l2ExpDate ? fetchedLead[0].l2ExpDate : undefined,
+            lender3: fetchedLead[0].lender3 ? fetchedLead[0].lender3 : undefined,
+            financeAmountL3: fetchedLead[0].financeAmount3 ? fetchedLead[0].financeAmount3 : undefined,
+            // l3ExpDate: fetchedLead[0].l3ExpDate ? fetchedLead[0].l3ExpDate : undefined,
+            dealerFees: fetchedLead[0].dealerFees ? fetchedLead[0].dealerFees : undefined,
+            priceAfterDfDiscounts: fetchedLead[0].totalPriceAfterDealerFees ? fetchedLead[0].totalPriceAfterDealerFees : undefined,
+            ppw: fetchedLead[0].ppw ? fetchedLead[0].ppw : undefined,
+            // discounts: fetchedLead[0].discounts ? fetchedLead[0].discounts : undefined,
+            longi_and_lat: fetchedLead[0].latAndLongOfHome ? fetchedLead[0].latAndLongOfHome : undefined,
+            closerNotesToPm: fetchedLead[0].repNotesToPM ? fetchedLead[0].repNotesToPM : undefined,
+            module_qty: fetchedLead[0].moduleQty ? fetchedLead[0].moduleQty : undefined,
+            system_size: fetchedLead[0].systemSize ? fetchedLead[0].systemSize : undefined,
+            estSys: fetchedLead[0].estimatedSystemProd ? fetchedLead[0].estimatedSystemProd : undefined,
+            specialNotes: fetchedLead[0].specialNotes ? fetchedLead[0].specialNotes : undefined,
+            financeNotes: fetchedLead[0].specialNotes1 ? fetchedLead[0].specialNotes1 : undefined,
+            specialNotes2: fetchedLead[0].specialNotes2 ? fetchedLead[0].specialNotes2 : undefined,
+            lender1DealerFees: fetchedLead[0].lender1DealerFees ? fetchedLead[0].lender1DealerFees : undefined,
+            lender2DealerFees: fetchedLead[0].lender2DealerFees ? fetchedLead[0].lender2DealerFees : undefined,
+            lender3DealerFees: fetchedLead[0].lender3DealerFees ? fetchedLead[0].lender3DealerFees : undefined,
+            loanDocsLink: fetchedLead[0].loanDocsLink ? fetchedLead[0].loanDocsLink : undefined,
+            loanId: fetchedLead[0].applicationId ? fetchedLead[0].applicationId : undefined,
+            velocifyId: fetchedLead[0].leadId ? fetchedLead[0].leadId : undefined,
+            solar: fetchedLead[0].solarSold ? fetchedLead[0].solarSold : undefined,
+            roof: fetchedLead[0].roofSold ? fetchedLead[0].roofSold : undefined,
+            generator: fetchedLead[0].generatorSold ? fetchedLead[0].generatorSold : undefined,
+            battery: fetchedLead[0].batterySold ? fetchedLead[0].batterySold : undefined,
+            evCharger: fetchedLead[0].evChargerSold ? fetchedLead[0].evChargerSold : undefined,
+            span: fetchedLead[0].spanSold ? fetchedLead[0].spanSold : undefined,
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = { createDealOnGreen }

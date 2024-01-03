@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold display-1 glow" href="#">Green Homes System</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="w-full m-4 d-flex justify-content-center flex-column align-items-center">
+    <div class="mb-4">
+      <button id="startBtn" class="btn btn-success start">Start Server</button>
+      <button id="endBtn" class="btn btn-danger stop">Stop Server</button>
+    </div>
+  </div>
+  <div class="outputDiv w-full d-flex flex-column align-items-center justify-content-center">
+    <h1 id="heading">Output</h1>
+    <div class="outputText">
+      <p id="output"></p>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+  <script>
+    const socket = io();
+    document.querySelector("#endBtn").classList.add("disabled");
+    document.getElementById("startBtn").addEventListener("click", () => {
+      document.querySelector("#startBtn").classList.add("disabled");
+      document.querySelector("#endBtn").classList.remove("disabled");
+      socket.connect("http://localhost:8080");
+      fetch("http://localhost:8080/start")
+        .then((res) => console.log(res))
+        .catch((error) => console.error(error));
+      document.getElementById("output").innerHTML += `<br>Starting the server. Please wait...`;
+      socket.off("dataaa");
+      socket.on("dataaa", (data) => {
+        console.log(data);
+        document.getElementById("output").innerHTML += `<br>${data}`;
+        // auto scroll
+        document.querySelector(".outputText").scrollTop = document.querySelector(".outputText").scrollHeight;
+        
+
+      
+      });
+    });
+
+    document.getElementById("endBtn").addEventListener("click", () => {
+      document.querySelector("#startBtn").classList.remove("disabled");
+      document.querySelector("#endBtn").classList.add("disabled");
+      document.getElementById("output").innerHTML += "<br>Stopping the server. Please wait...";
+      fetch("http://localhost:8080/stop")
+        .then((res) => {
+          console.log(res)
+          socket.disconnect();
+        })
+        .catch((error) => console.error(error));
+    });
+
+  </script>
+</body>
+
+</html>
